@@ -1,0 +1,15 @@
+<div class="container">
+    <div class="content">
+      <h2 class="upload-text">Upload Your Profile Image</h2>
+      <input class="file-input" type="file" (change)="onFileSelected($event)">
+      <button class="update-button" (click)="uploadProfileImage()">Update Profile Image</button>
+    </div>
+
+  <div class="bitbucket">
+    <h2 class="credentials-text">Add Bitbucket SSH Key</h2>
+    <textarea class="ssh-key-input" [(ngModel)]="sshKey" placeholder="Paste your Bitbucket SSH key here"></textarea>
+    <button class="add-key-button" (click)="addSSHKey()">Add SSH Key</button>
+  </div>
+</div>
+
+  

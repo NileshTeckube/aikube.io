@@ -1,0 +1,145 @@
+<!-- <div class="center">
+  <form (ngSubmit)="submit(inputData)" #inputData="ngForm">
+     <label for="">Enter text</label>
+    <input type="text" name="blogName" placeholder="Enter Text to Generate Blog" ngModel />
+
+    <button type="submit" class="btn-full-width subscribe">Generate</button>
+  </form>
+
+</div> -->
+<!--
+<div class="heading">
+  <h2 class="font-weight-normal text-center display-4 capitalize-words">
+    {{ blog.title }}
+  </h2>
+</div>
+
+<div class="image">
+  <img
+    src="{{ blog.imageFilename }}"
+    class="img-fluid mt-5 text-center"
+    alt=""
+  />
+</div>
+
+<div class="">
+  <ul>
+    <li *ngFor="let line of blogContentTrim.split('\n\n')">{{ line }}</li>
+  </ul>
+  <p class="text-center">{{blog.blogContent}}</p>
+</div> -->
+<!-- <c-container>
+  <c-row class="justify-content-center">
+    <c-col md="8">
+      <c-card-group>
+        <c-card class="p-4">
+          <h2 class="capitalize-words">
+            {{ blog.title }}
+          </h2>
+          <img
+            src="{{ blog.imageFilename }}"
+            class="img-fluid mt-5 text-center"
+            alt=""
+          />
+          <div class="">
+            <ul>
+              <li *ngFor="let line of blogContentTrim.split('\n\n')">{{ line }}</li>
+            </ul>
+            <p class="text-center">{{blog.blogContent}}</p>
+          </div>
+
+
+          <c-card-body> </c-card-body>
+        </c-card>
+      </c-card-group>
+    </c-col>
+  </c-row>
+</c-container> -->
+
+
+<div class="bg-light  d-flex flex-row align-items-center">
+  <c-container>
+    <c-row class="justify-content-center">
+      <c-col md="8">
+        <c-card-group>
+          <c-card class="p-4">
+            <c-card-body>
+              <form cForm (ngSubmit)="submit()" #myForm="ngForm"  >
+                <h1 class="text-primary display-4">Generate Blog
+                  <c-spinner *ngIf="isLoading" color="primary"></c-spinner>
+
+                </h1>
+
+
+
+                <!-- <p class="text-medium-emphasis">Sign In to your account</p> -->
+                <c-input-group class="mb-3">
+
+                  <input autoComplete="blogname"cFormControl placeholder="Blog Name" name="blogName" ngModel  />
+                </c-input-group>
+                <c-input-group class="mb-4">
+
+                  <input
+                    autoComplete=""
+                    cFormControl
+                    placeholder="Image URL"
+                    type="text"
+                    name="imageName" ngModel
+                  />
+                </c-input-group>
+                <c-input-group class="mb-4">
+
+                  <input
+                    autoComplete=""
+                    cFormControl
+                    placeholder="User Name"
+                    type="text"
+                    name="username" ngModel
+                  />
+                </c-input-group>
+                <c-row>
+                  <c-col xs="6">
+                    <button cButton class="px-4" color="primary"  type="submit">
+                      Generate
+                    </button>
+                  </c-col>
+
+
+
+                </c-row>
+
+              </form>
+
+            </c-card-body>
+          </c-card>
+          <!-- <c-card  class="text-white bg-primary py-5 mobile" >
+            <c-card-body class="text-center">
+              <div>
+                <h2>Sign up</h2>
+                <p>
+                  Unlock the potential of AI and Kubernetes with AiKube,
+                  empowering businesses with advanced orchestration and
+                  intelligent automation.
+                </p>
+                <a href="https://teckube.io/aikube.html" >
+                  <button [active]="true" cButton class="mt-3" color="primary" routerLink="./register">
+                    Register Now!
+                  </button>
+                </a>
+
+                 <a href="https://teckube.io/aikube.html" target="_blank">
+                  Example External Link
+                </a>
+
+
+
+              </div>
+            </c-card-body>
+          </c-card> -->
+        </c-card-group>
+      </c-col>
+    </c-row>
+  </c-container>
+
+
+</div>

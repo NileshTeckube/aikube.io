@@ -1,0 +1,89 @@
+<h1 class="text-center mt-0">User Logs</h1>
+
+<mat-card>
+  <mat-card-content>
+    <c-container fluid>
+      <c-row pt-2 class="align-items-start">
+        <!-- <c-col>
+          <mat-form-field>
+            <mat-label>Select User</mat-label>
+            <mat-select disabled>
+              <mat-option *ngFor="let user of ListOfUser" [value]="user.value">
+                {{ user.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </c-col> -->
+        <c-col md="4">
+          <mat-form-field>
+            <mat-label>Select API</mat-label>
+            <mat-select
+              [(ngModel)]="selectedValue"
+              (selectionChange)="onSelectChange()"
+            >
+              <mat-option *ngFor="let Api of ListOfApis" [value]="Api.value">
+                {{ Api.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </c-col>
+        <c-col md="4">
+          <mat-form-field>
+            <mat-label>Select Date Range</mat-label>
+
+            <mat-date-range-input [rangePicker]="picker" [formGroup]="range">
+              <input
+                matStartDate
+                placeholder="Start Date"
+                formControlName="start"
+              />
+              <input matEndDate placeholder="End Date" formControlName="end" />
+            </mat-date-range-input>
+            <mat-hint>MM/DD/YYYY - MM/DD/YYYY</mat-hint>
+
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+
+            <mat-date-range-picker #picker></mat-date-range-picker>
+          </mat-form-field>
+        </c-col>
+        <c-col md="2">
+          <button
+            mat-raised-button
+            color="primary"
+            class="color-button"
+            (click)="searchApi()"
+          >
+            Search
+          </button>
+        </c-col>
+        <c-col md="2">
+          <button mat-raised-button (click)="resetDatePicker()">Reset</button>
+        </c-col>
+      </c-row>
+    </c-container>
+  </mat-card-content>
+</mat-card>
+
+<table [striped]="true" cTable class="mt-2" *ngIf="LogDetails.length > 0">
+  <thead>
+    <tr>
+      <th scope="col">S.No</th>
+      <th scope="col">Date</th>
+      <th scope="col">API</th>
+      <!-- <th scope="col">Operation</th> -->
+    </tr>
+  </thead>
+
+  <tbody>
+    <!-- <tr *ngFor="let issue of issuesData | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: issuesData.length }"> -->
+
+    <tr *ngFor="let log of LogDetails; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ log.ddmmyyyy }}</td>
+      <td>{{ log.api }}</td>
+    </tr>
+  </tbody>
+</table>

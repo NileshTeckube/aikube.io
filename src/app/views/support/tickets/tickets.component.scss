@@ -1,0 +1,34 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  text-decoration: none;
+}
+.ngx-pagination.current {
+  padding: 0.1875rem 0.625rem;
+  //background:blue ;
+  color: #fefefe;
+  cursor: default;
+}
+.editandLog{
+  text-decoration: none;
+  background: none;
+  border: none;
+}
+// .mat-h2,.mat-headline-6, .mat-typography .mat-h2, .mat-typography .mat-headline-6, .mat-typography h2 {
+//   margin: 0;
+// }
+
+:host ::ng-deep .ck-editor__editable_inline {
+  min-height: 100px !important;
+}
+small{
+  color: green;
+}
+.right{
+  text-align: end;
+  display:block;
+}
+.margin{
+  margin-top: 20px;
+}

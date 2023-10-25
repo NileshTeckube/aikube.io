@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "teckube-auth": {
+      "hosting": {
+        "coreui-free-angular-admin-template": [
+          "teckube-auth"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "teckube-auth"
+  }
+}

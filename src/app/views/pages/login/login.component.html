@@ -1,0 +1,84 @@
+
+
+<div class="bg-light min-vh-100 d-flex flex-row align-items-center">
+  <c-container>
+    <c-row class="justify-content-center">
+      <c-col md="8">
+        <c-card-group>
+          <c-card class="p-4">
+            <c-card-body>
+              <form cForm   (ngSubmit)="signIn(formData)"  #formData="ngForm">
+                <h1>Login</h1>
+                <p class="text-medium-emphasis">Sign In to your account</p>
+                <c-input-group class="mb-3">
+                  <span cInputGroupText>
+                    <svg cIcon name="cilUser"></svg>
+                  </span>
+                  <input autoComplete="username"cFormControl placeholder="Email" name="email" ngModel  />
+                </c-input-group>
+                <c-input-group class="mb-4">
+                  <span cInputGroupText>
+                    <svg cIcon name="cilLockLocked"></svg>
+                  </span>
+                  <input
+                    autoComplete="current-password"
+                    cFormControl
+                    placeholder="Password"
+                    type="password"
+                    name="password" ngModel
+                  />
+                </c-input-group>
+                <c-row>
+                  <c-col xs="6">
+                    <button cButton class="px-4" color="primary"  type="submit">
+                      Login
+                    </button>
+                  </c-col>
+                  <c-col class="text-right" xs="6">
+                    <a routerLink="/login/resetPasswordRequest">
+                      <button cButton class="px-0" color="link">
+                      Forgot password?
+                    </button>
+                    </a>
+                  </c-col>
+
+                </c-row>
+
+              </form>
+            </c-card-body>
+          </c-card>
+          <c-card  class="text-white bg-primary py-5 mobile" >
+            <c-card-body class="text-center">
+              <div>
+                <h2>Sign up</h2>
+                <p>
+                  Unlock the potential of AI and Kubernetes with AiKube,
+                  empowering businesses with advanced orchestration and
+                  intelligent automation.
+                </p>
+                <a href="https://teckube.io/aikube.html" >
+                  <button [active]="true" cButton class="mt-3" color="primary" routerLink="./register">
+                    Register Now!
+                  </button>
+                </a>
+
+                <!-- <a href="https://teckube.io/aikube.html" target="_blank">
+                  Example External Link
+                </a> -->
+
+
+
+              </div>
+            </c-card-body>
+          </c-card>
+        </c-card-group>
+      </c-col>
+    </c-row>
+  </c-container>
+
+
+</div>
+
+
+
+

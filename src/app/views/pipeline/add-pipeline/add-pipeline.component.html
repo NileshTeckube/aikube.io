@@ -1,0 +1,107 @@
+<!-- Add Pipeline Button -->
+<button class="text-right" color="info" variant="outline" [cModalToggle]="addPipelineModal.id" cButton>
+  <svg cIcon name="cib-addthis" size="xl" title="Numbered List Icon"></svg>
+</button>
+
+
+<div *ngIf="isLoading" class="loadercenter" >
+  <c-spinner color="secondary"></c-spinner>
+
+</div>
+  <table class="table table-striped mt-4">
+   <thead>
+    <tr>
+      <th scope="col">Pipeline Name</th>
+      <th scope="col">Source</th>
+      <th scope="col">Cloud</th>
+      <th scope="col">Github Repository URL</th>
+      <th scope="col">Action</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+   </thead>
+  <tbody>
+
+
+    <tr *ngFor="let pipeline of data | paginate: config">
+      <td>{{ pipeline.name }}</td>
+      <td>{{ pipeline.source }}</td>
+      <td>{{ pipeline.cloud }}</td>
+      <td>{{ pipeline.githubRepository }}</td>
+      <td> <button class="action" (click)="handleActionClick(pipeline.githubRepository,pipeline.name)">
+        <svg cIcon name="cilMediaPlay" size="xl" title="Delete Icon"></svg>
+
+      </button></td>
+      <td>
+        <button (click)="editPipeline(pipeline)" class="editandLog">
+          <svg cIcon name="cilPencil" size="xl" title="Paper Plane Icon"></svg>
+        </button>
+      </td>
+      <td>
+        <!-- <button (click)="deletePipeline(pipeline)" class="deleteandLog">
+          <svg cIcon name="cilDelete" size="xl" title="Delete Icon"></svg>
+          <i class="material-icons">delete</i>
+        </button> -->
+        <button (click)="deletePipeline(pipeline)" class="deleteandLog">
+          <!-- <svg cIcon name="cilDelete" size="xl" title="Delete Icon"></svg> -->
+          <i class="material-icons">delete</i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<!-- Pagination Controls -->
+<div class="pagination">
+  <pagination-controls (pageChange)="config.currentPage = $event"></pagination-controls>
+</div>
+
+
+<!-- Add Pipeline Modal -->
+<c-modal #addPipelineModal alignment="center" id="addPipelineModal">
+  <c-modal-header>
+    <h5 cModalTitle class="modal-title">Add Pipeline</h5>
+    <button [cModalToggle]="addPipelineModal.id" cButtonClose class="close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </c-modal-header>
+  <c-modal-body>
+    <form cForm (ngSubmit)="createPipeline(formData)" #formData="ngForm">
+      <div class="form-group form-element">
+        <label for="pipelineName">Pipeline Name *</label>
+        <input type="text" class="form-control" id="pipelineName" placeholder="Enter Pipeline Name" name="name"
+          [(ngModel)]="pipelineName" required />
+      </div>
+      <div class="form-group form-element">
+        <label for="source">Source *</label>
+        <select class="form-control" id="source" [(ngModel)]="source" name="source" required>
+          <option value="" disabled>Choose Source</option>
+          <option value="Github">Github</option>
+        </select>
+      </div>
+      <div class="form-group form-element">
+        <label for="cloud">Cloud *</label>
+        <select class="form-control" id="cloud" [(ngModel)]="cloud" name="cloud" required>
+          <option value="" disabled>Choose Cloud</option>
+          <option value="AWS">AWS</option>
+          <!-- Add other cloud options here -->
+        </select>
+      </div>
+      <div class="form-group form-element">
+        <label for="githubRepository">Github Repository URL *</label>
+        <input type="text" class="form-control" id="githubRepository" placeholder="Enter Github Repository URL" name="githubRepository"
+          [(ngModel)]="githubRepository" required />
+      </div>
+      <div class="text-center">
+        <button cButton color="primary" type="submit" variant="outline" [disabled]="!formData.valid || isSubmitting">
+          <c-spinner aria-hidden="true" size="sm" *ngIf="isSubmitting"></c-spinner>
+          {{ isSubmitting ? 'Creating Pipeline...' : 'Create Pipeline' }}
+        </button>
+      </div>
+    </form>
+    <div *ngIf="isFormInvalid && cloud !== 'aws' && formData.controls['cloud'].touched" class="text-danger mt-3">
+      Required fields are missing.
+    </div>
+  </c-modal-body>
+</c-modal>

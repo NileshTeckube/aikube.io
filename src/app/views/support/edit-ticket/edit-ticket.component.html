@@ -1,0 +1,50 @@
+
+<c-modal
+  [keyboard]="false"
+  [transition]="false"
+  backdrop="static"
+  class="position-static d-block show"
+  id="modalStatic"
+>
+  <c-modal-header>
+    <h5 cModalTitle>Edit Ticket</h5>
+    <!-- <button cButtonClose></button> -->
+  </c-modal-header>
+  <c-modal-body>
+    <form cForm (ngSubmit)="updateIssue(formData)" #formData="ngForm">
+      <c-input-group class="mb-3">
+        <input
+          autoComplete=""
+          cFormControl
+          placeholder="Ticket Summary *"
+          name="summary"
+          [(ngModel)]="issue.summary"
+        />
+      </c-input-group>
+      <c-input-group class="mb-2">
+        <textarea
+          cFormControl
+          id="exampleFormControlTextarea1"
+          rows="3"
+          placeholder="Ticket Description *"
+          name="description"
+          [(ngModel)]="issue.description"
+        ></textarea>
+      </c-input-group>
+      <div class="pb-3 text-center pt-1">
+        <button
+          cButton
+          color="primary"
+          type="submit"
+          variant="outline"
+          class="m-1"
+
+        >
+        <c-spinner aria-hidden="true" size="sm" *ngIf="isSubmitting"></c-spinner>
+          Update Ticket
+        </button>
+      </div>
+    </form>
+  </c-modal-body>
+
+</c-modal>

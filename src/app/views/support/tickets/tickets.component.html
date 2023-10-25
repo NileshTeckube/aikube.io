@@ -1,0 +1,194 @@
+<c-container>
+  <c-row class="align-items-start">
+    <c-col>
+      <button
+        class="text-right"
+        color="primary"
+        variant="outline"
+        [cModalToggle]="verticallyCenteredModal.id"
+        cButton
+      >
+        <svg
+          cIcon
+          name="cib-addthis"
+          size="xl"
+          title="Numbered List Icon"
+        ></svg>
+      </button>
+    </c-col>
+    <c-col>
+      <div *ngIf="isLoading" class="align-items-center">
+        <c-spinner color="secondary"></c-spinner>
+      </div>
+    </c-col>
+  </c-row>
+</c-container>
+
+<c-modal
+  #verticallyCenteredModal
+  alignment="center"
+  id="verticallyCenteredModal"
+>
+  <c-modal-header>
+    <h5 cModalTitle>Create a ticket</h5>
+    <button [cModalToggle]="verticallyCenteredModal.id" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <form cForm (ngSubmit)="createJiraIssue(formData)" #formData="ngForm">
+      <c-input-group class="mb-3">
+        <input
+          autoComplete=""
+          cFormControl
+          placeholder="Ticket Summary *"
+          name="summary"
+          ngModel
+        />
+      </c-input-group>
+      <c-input-group class="mb-2">
+        <textarea
+          cFormControl
+          id="exampleFormControlTextarea1"
+          rows="3"
+          placeholder="Ticket Description *"
+          name="description"
+          ngModel
+        ></textarea>
+      </c-input-group>
+      <div class="pb-3 text-center pt-1">
+        <button
+          cButton
+          color="primary"
+          type="submit"
+          variant="outline"
+          class="m-1"
+          [disabled]="isFormInvalid"
+        >
+          <c-spinner
+            aria-hidden="true"
+            size="sm"
+            *ngIf="isSubmitting"
+          ></c-spinner>
+
+          Create Ticket
+        </button>
+      </div>
+    </form>
+    <div *ngIf="isFormInvalid" class="text-danger">
+      Required fields are missing.
+    </div>
+  </c-modal-body>
+</c-modal>
+
+<c-modal #scrollableLongContentModal id="scrollableLongContentModal" scrollable>
+  <c-modal-header>
+    <h2 cModalTitle>Activities</h2>
+    <button
+      [cModalToggle]="scrollableLongContentModal.id"
+      cButtonClose
+    ></button>
+  </c-modal-header>
+  <c-modal-body>
+    <ckeditor [config]="{placeholder:'Type your comment here'}"  [(ngModel)]="ckeditorContent"  (change)="onEditorChange($event)"  [editor]="Editor" ></ckeditor>
+    <button cButton color="primary" (click)="CreateComment()" (click)="viewTickets()"  size="sm" [disabled]="showSpinner" class="mt-2 right"style="float: right;">
+      <c-spinner aria-hidden="true" size="sm" variant="grow" *ngIf="showSpinner"></c-spinner>
+
+      {{ showSpinner ? 'Creating Comment...' : 'Add Comment' }}
+    </button>
+
+    <ng-container *ngTemplateOutlet="longContent"></ng-container>
+  </c-modal-body>
+</c-modal>
+
+<ng-template #longContent class="margin" >
+
+    <div *ngIf="commentsOfselectedIssue && commentsOfselectedIssue.comments">
+      <ul>
+        <li *ngFor="let comment of commentsOfselectedIssue.comments">
+
+          Comment by : <strong>{{ comment.author }}</strong>
+          <p>{{ comment.body }}</p>
+        </li>
+      </ul>
+
+
+    </div>
+
+</ng-template>
+
+<table [striped]="true" cTable class="mt-5">
+  <thead>
+    <tr>
+      <!-- <th scope="col">Name</th> -->
+      <th scope="col">Summary</th>
+      <th scope="col">User</th>
+      <th scope="col">Status</th>
+      <th scope="col">Activity</th>
+      <th scope="col">Edit</th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    <tr
+      *ngFor="
+        let issue of issuesData| paginate:
+        {
+                itemsPerPage: pageSize,
+                currentPage: currentPage,
+                totalItems: issuesData.length
+              }">
+      <!-- <td scope="row">{{issue.name}}</td> -->
+      <td>{{ issue.summary }}</td>
+      <td>{{ issue.userName }}</td>
+      <td>{{ issue.status }}</td>
+      <td >
+        <!-- <button (click)="toggleLiveDemo(issue.issueKey)">
+          <svg cIcon name="cil-chartLine" size="md" title="Numbered List Icon"></svg>
+        </button> -->
+        <button [cModalToggle]="scrollableLongContentModal.id" (click)="getIssueKey(issue.issueKey)">
+          <svg cIcon name="cil-chartLine" size="md" title="Numbered List Icon"></svg>
+        </button>
+
+        <!-- (click)="setSelectedIssue()" -->
+
+      </td>
+      <td>
+        <button (click)="editIssue(issue)" class="editandLog">
+          <svg cIcon name="cilPencil" size="xl" title="Paper Plane Icon"></svg>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="pagination">
+  <pagination-controls
+    (pageChange)="currentPage = $event"
+    class="pagination"
+  ></pagination-controls>
+</div>
+
+
+<!-- <c-modal id="liveDemoModal" [visible]="visible" (visibleChange)="handleLiveDemoChange($event)">
+  <c-modal-header>
+    <h2 cModalTitle>Add and View comment</h2>
+    <button (click)="toggleLiveDemo($event)" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <ckeditor [config]="{placeholder:'Type your comment here'}"  [(ngModel)]="ckeditorContent"  (change)="onEditorChange($event)"  [editor]="Editor" ></ckeditor>
+  </c-modal-body>
+  <c-modal-footer>
+    <button  cButton color="info"[cModalToggle]="scrollableLongContentModal.id"(click)="setSelectedIssue()">
+      View Activities
+    </button>
+    <button cButton color="primary" (click)="CreateComment()" [disabled]="showSpinner">
+      <c-spinner aria-hidden="true" size="sm" variant="grow" *ngIf="showSpinner"></c-spinner>
+
+      {{ showSpinner ? 'Creating Comment...' : 'Add Comment' }}
+    </button>
+
+  </c-modal-footer>
+</c-modal> -->
+
+
+

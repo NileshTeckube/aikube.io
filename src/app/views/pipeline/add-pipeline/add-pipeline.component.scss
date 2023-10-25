@@ -1,0 +1,51 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    text-decoration: none;
+  }
+  .ngx-pagination.current {
+    padding: 0.1875rem 0.625rem;
+    color: #fefefe;
+    cursor: default;
+  }
+  :host ::ng-deep .ck-editor__editable_inline {
+    min-height: 100px !important;
+  }
+  small{
+    color: green;
+  }
+  .right{
+    text-align: end;
+    display:block;
+  }
+  .margin{
+    margin-top: 20px;
+  }
+  .form-element {
+    margin-bottom: 10px;
+  }
+  .editandLog {
+    border: none;
+    padding: 0;
+    background: none;
+    cursor: pointer;
+  }
+
+  .deleteandLog {
+    border: none;
+    padding: 0;
+    background: none;
+    cursor: pointer;
+  }
+  .action{
+    border: none;
+    text-decoration: none;
+    background-color: transparent;
+
+  }
+  .loadercenter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
